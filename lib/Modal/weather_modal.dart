@@ -2,8 +2,7 @@ class Weather {
   String name;
   String region;
   String country;
-  double lat;
-  double lon;
+
   String condition;
   double temp_c;
   double feelslike_c;
@@ -15,14 +14,13 @@ class Weather {
   String sunrise;
   String sunset;
   int is_day;
+
   List hour;
 
   Weather({
     required this.name,
     required this.region,
     required this.country,
-    required this.lat,
-    required this.lon,
     required this.condition,
     required this.temp_c,
     required this.feelslike_c,
@@ -42,8 +40,6 @@ class Weather {
       name: data['location']['name'],
       region: data['location']['region'],
       country: data['location']['country'],
-      lat: data['location']['lat'],
-      lon: data['location']['lon'],
       condition: data['current']['condition']['text'],
       temp_c: data['current']['temp_c'],
       feelslike_c: data['current']['feelslike_c'],

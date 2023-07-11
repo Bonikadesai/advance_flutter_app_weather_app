@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             flexibleSpace: Image(
               image: (Provider.of<ThemeProvider>(context).themeModel.isDark)
-                  ? AssetImage("assets/image/weather dark mode.jpg")
-                  : AssetImage("assets/image/weather light mode.jpg"),
+                  ? const AssetImage("assets/image/weather dark mode.jpg")
+                  : const AssetImage("assets/image/weather light mode.jpg"),
               fit: BoxFit.fitWidth,
             ),
             elevation: 0,
@@ -104,9 +104,9 @@ class _HomePageState extends State<HomePage> {
                                                   context)
                                               .themeModel
                                               .isDark)
-                                          ? AssetImage(
+                                          ? const AssetImage(
                                               "assets/image/weather dark mode.jpg")
-                                          : AssetImage(
+                                          : const AssetImage(
                                               "assets/image/weather light mode.jpg"),
                                       fit: BoxFit.cover,
                                     ),
@@ -120,9 +120,8 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
-                                          
                                         ),
                                         TextField(
                                           controller:
@@ -186,20 +185,19 @@ class _HomePageState extends State<HomePage> {
                                             }
                                           },
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
-                                          
                                         ),
                                         Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 50,
                                             ),
                                             Text(
                                               data.name,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 50,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
@@ -213,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Text(
                                               "${data.temp_c}°",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 40,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
@@ -221,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                             Text(
                                               data.condition,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
@@ -229,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 50,
                                         ),
                                         SingleChildScrollView(
@@ -270,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                                                               ? Colors.white
                                                               : Colors.black,
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 10,
                                                         ),
                                                         Text(
@@ -291,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                                         )
                                                       ],
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 60,
                                                     ),
                                                     SingleChildScrollView(
@@ -334,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                                                                               18,
                                                                         ),
                                                                       ),
-                                                                SizedBox(
+                                                                const SizedBox(
                                                                   height: 10,
                                                                 ),
                                                                 Image.network(
@@ -342,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                                                                   height: 40,
                                                                   width: 40,
                                                                 ),
-                                                                SizedBox(
+                                                                const SizedBox(
                                                                   height: 10,
                                                                 ),
                                                                 Text(
@@ -372,7 +370,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ]),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Text(
@@ -387,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                                                 : Colors.black,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -506,7 +504,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .black54,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 5,
                                                             ),
                                                             Text(
@@ -547,7 +545,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .black54,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 5,
                                                             ),
                                                             Text(
@@ -577,7 +575,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 20,
                                         ),
                                         Row(
@@ -631,7 +629,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .black54,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
@@ -698,7 +696,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .black54,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
@@ -750,7 +748,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .black54,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
@@ -821,7 +819,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .black54,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
@@ -877,7 +875,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .black54,
                                                             ),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 5,
                                                           ),
                                                           Text(
@@ -949,7 +947,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .black54,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
@@ -990,7 +988,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 20,
                                         ),
                                         Container(
@@ -1036,7 +1034,7 @@ class _HomePageState extends State<HomePage> {
                                                         : Colors.black,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 50,
                                                 ),
                                                 Text(
