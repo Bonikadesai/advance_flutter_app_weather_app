@@ -24,9 +24,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
-
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -42,6 +39,21 @@ class _HomePageState extends State<HomePage> {
             ),
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(0.5),
+            leading: IconButton(
+              onPressed: () {
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .changeTheme();
+              },
+              icon: (Provider.of<ThemeProvider>(context).themeModel.isDark)
+                  ? const Icon(
+                      Icons.dark_mode,
+                      color: Colors.white,
+                    )
+                  : const Icon(
+                      Icons.light_mode,
+                      color: Colors.white,
+                    ),
+            ),
             actions: [
               Switch(
                   value: Provider.of<IosProvider>(context, listen: true).isIos,
@@ -84,8 +96,8 @@ class _HomePageState extends State<HomePage> {
                           : Stack(
                               children: [
                                 Container(
-                                  height: _height,
-                                  width: _width,
+                                  height: 800,
+                                  width: double.infinity,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: (Provider.of<ThemeProvider>(
@@ -106,10 +118,11 @@ class _HomePageState extends State<HomePage> {
                                     physics: const BouncingScrollPhysics(),
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         SizedBox(
-                                          height: _height * 0.01,
+                                          height: 10,
+                                          
                                         ),
                                         TextField(
                                           controller:
@@ -174,104 +187,34 @@ class _HomePageState extends State<HomePage> {
                                           },
                                         ),
                                         SizedBox(
-                                          height: _height * 0.01,
+                                          height: 10,
+                                          
                                         ),
-                                        Row(
+                                        Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  data.name,
-                                                  style: TextStyle(
-                                                    fontSize: _height * 0.04,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: _height * 0.005,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                        Icons.location_on),
-                                                    SizedBox(
-                                                      width: _width * 0.02,
-                                                    ),
-                                                    Text(
-                                                      "Lat :  ${data.lat} °",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.018,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: _width * 0.08,
-                                                    ),
-                                                    Text(
-                                                      "Lon :  ${data.lon} °",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.018,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                            SizedBox(
+                                              height: 50,
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                Provider.of<ThemeProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .changeTheme();
-                                              },
-                                              icon: (Provider.of<ThemeProvider>(
-                                                          context)
-                                                      .themeModel
-                                                      .isDark)
-                                                  ? const Icon(
-                                                      Icons.dark_mode,
-                                                      color: Colors.white,
-                                                    )
-                                                  : const Icon(
-                                                      Icons.light_mode,
-                                                      color: Colors.white,
-                                                    ),
+                                            Text(
+                                              data.name,
+                                              style: TextStyle(
+                                                fontSize: 50,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: _height * 0.1,
-                                        ),
-                                        Row(
+                                        Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          textBaseline: TextBaseline.alphabetic,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.baseline,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               "${data.temp_c}°",
                                               style: TextStyle(
-                                                fontSize: _height * 0.08,
+                                                fontSize: 40,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
                                               ),
@@ -279,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                                             Text(
                                               data.condition,
                                               style: TextStyle(
-                                                fontSize: _height * 0.025,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white,
                                               ),
@@ -287,98 +230,16 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: _height * 0.01,
+                                          height: 50,
                                         ),
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           physics:
                                               const BouncingScrollPhysics(),
-                                          child: Row(
-                                            children: List.generate(
-                                              data.hour.length,
-                                              (index) => Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 28),
-                                                child: Column(
-                                                  children: [
-                                                    (data.hour[DateTime.now()
-                                                                            .hour]
-                                                                        ['time']
-                                                                    .split(
-                                                                        "${DateTime.now().day}")[
-                                                                1] ==
-                                                            data.hour[index]
-                                                                    ['time']
-                                                                .split(
-                                                                    "${DateTime.now().day}")[1])
-                                                        ? Text(
-                                                            "Now",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  _height *
-                                                                      0.022,
-                                                            ),
-                                                          )
-                                                        : Text(
-                                                            data.hour[index]
-                                                                    ['time']
-                                                                .split(
-                                                                    "${DateTime.now().day}")[1],
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  _height *
-                                                                      0.022,
-                                                            ),
-                                                          ),
-                                                    SizedBox(
-                                                      height: _height * 0.01,
-                                                    ),
-                                                    Image.network(
-                                                      "http:${data.hour[index]['condition']['icon']}",
-                                                      height: _height * 0.05,
-                                                      width: _height * 0.05,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.01,
-                                                    ),
-                                                    Text(
-                                                      "${data.hour[index]['temp_c']}°",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize:
-                                                            _height * 0.022,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: _height * 0.05,
-                                        ),
-                                        Text(
-                                          "Weather details",
-                                          style: TextStyle(
-                                            fontSize: _height * 0.02,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: _height * 0.02,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
+                                          child: Row(children: [
                                             Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
+                                              height: 250,
+                                              width: 360,
                                               decoration: BoxDecoration(
                                                 color:
                                                     (Provider.of<ThemeProvider>(
@@ -390,35 +251,194 @@ class _HomePageState extends State<HomePage> {
                                                         : Colors.white
                                                             .withOpacity(0.4),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
+                                                    BorderRadius.circular(20),
                                               ),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(16),
                                                 child: Column(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.watch_later,
+                                                          color: (Provider.of<
+                                                                          ThemeProvider>(
+                                                                      context)
+                                                                  .themeModel
+                                                                  .isDark)
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          "24-hour forecast",
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: (Provider.of<
+                                                                            ThemeProvider>(
+                                                                        context)
+                                                                    .themeModel
+                                                                    .isDark)
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 60,
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        children: List.generate(
+                                                          data.hour.length,
+                                                          (index) => Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 28),
+                                                            child: Column(
+                                                              children: [
+                                                                (data.hour[DateTime.now().hour]['time'].split("${DateTime.now().day}")[
+                                                                            1] ==
+                                                                        data.hour[index]['time']
+                                                                            .split("${DateTime.now().day}")[1])
+                                                                    ? Text(
+                                                                        "Now",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color: (Provider.of<ThemeProvider>(context).themeModel.isDark)
+                                                                              ? Colors.white
+                                                                              : Colors.black,
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
+                                                                      )
+                                                                    : Text(
+                                                                        data.hour[index]['time']
+                                                                            .split("${DateTime.now().day}")[1],
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color: (Provider.of<ThemeProvider>(context).themeModel.isDark)
+                                                                              ? Colors.white
+                                                                              : Colors.black,
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
+                                                                      ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Image.network(
+                                                                  "http:${data.hour[index]['condition']['icon']}",
+                                                                  height: 40,
+                                                                  width: 40,
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(
+                                                                  "${data.hour[index]['temp_c']}°",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: (Provider.of<ThemeProvider>(context)
+                                                                            .themeModel
+                                                                            .isDark)
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Text(
+                                          "Weather details",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: (Provider.of<ThemeProvider>(
+                                                        context)
+                                                    .themeModel
+                                                    .isDark)
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            //west
+                                            Container(
+                                              height: 100,
+                                              width: 180,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    (Provider.of<ThemeProvider>(
+                                                                context)
+                                                            .themeModel
+                                                            .isDark)
+                                                        ? Colors.black
+                                                            .withOpacity(0.4)
+                                                        : Colors.white
+                                                            .withOpacity(0.4),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(
-                                                      color: (Provider.of<
-                                                                      ThemeProvider>(
-                                                                  context)
-                                                              .themeModel
-                                                              .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.thermostat,
-                                                      size: _height * 0.04,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
+                                                    Text(
+                                                      "Southwest",
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: (Provider.of<
+                                                                        ThemeProvider>(
+                                                                    context)
+                                                                .themeModel
+                                                                .isDark)
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
                                                     ),
                                                     Text(
-                                                      "Feels Like",
+                                                      "10.0km/h",
                                                       style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
+                                                        fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         color: (Provider.of<
@@ -430,48 +450,124 @@ class _HomePageState extends State<HomePage> {
                                                             : Colors.black54,
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
-                                                    Row(
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            //sunrise nd sunset
+                                            Container(
+                                              height: 100,
+                                              width: 180,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    (Provider.of<ThemeProvider>(
+                                                                context)
+                                                            .themeModel
+                                                            .isDark)
+                                                        ? Colors.black
+                                                            .withOpacity(0.4)
+                                                        : Colors.white
+                                                            .withOpacity(0.4),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          "${data.feelslike_c}",
-                                                          style: TextStyle(
-                                                            color: (Provider.of<
-                                                                            ThemeProvider>(
-                                                                        context)
-                                                                    .themeModel
-                                                                    .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Sunrise",
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: (Provider.of<ThemeProvider>(
+                                                                            context)
+                                                                        .themeModel
+                                                                        .isDark)
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : Colors
+                                                                        .black54,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Text(
+                                                              data.sunrise,
+                                                              style: TextStyle(
+                                                                color: (Provider.of<ThemeProvider>(
+                                                                            context)
+                                                                        .themeModel
+                                                                        .isDark)
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        SizedBox(
-                                                          width: _width * 0.01,
-                                                        ),
-                                                        Text(
-                                                          "°",
-                                                          style: TextStyle(
-                                                            color: (Provider.of<
-                                                                            ThemeProvider>(
-                                                                        context)
-                                                                    .themeModel
-                                                                    .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Sunset",
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: (Provider.of<ThemeProvider>(
+                                                                            context)
+                                                                        .themeModel
+                                                                        .isDark)
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : Colors
+                                                                        .black54,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Text(
+                                                              data.sunset,
+                                                              style: TextStyle(
+                                                                color: (Provider.of<ThemeProvider>(
+                                                                            context)
+                                                                        .themeModel
+                                                                        .isDark)
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -479,9 +575,18 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
                                             Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
+                                              height: 200,
+                                              width: 180,
                                               decoration: BoxDecoration(
                                                 color:
                                                     (Provider.of<ThemeProvider>(
@@ -493,56 +598,42 @@ class _HomePageState extends State<HomePage> {
                                                         : Colors.white
                                                             .withOpacity(0.4),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
+                                                    BorderRadius.circular(20),
                                               ),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(16),
                                                 child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(
-                                                      color: (Provider.of<
-                                                                      ThemeProvider>(
-                                                                  context)
-                                                              .themeModel
-                                                              .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.air,
-                                                      size: _height * 0.04,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "SW wind",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
+                                                    //sw wind
                                                     Row(
-                                                      textBaseline: TextBaseline
-                                                          .ideographic,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
+                                                        Text(
+                                                          "SW wind",
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: (Provider.of<
+                                                                            ThemeProvider>(
+                                                                        context)
+                                                                    .themeModel
+                                                                    .isDark)
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
                                                         Text(
                                                           "${data.wind_kph}",
                                                           style: TextStyle(
@@ -553,14 +644,10 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
+                                                            fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: _width * 0.01,
                                                         ),
                                                         Text(
                                                           "km/h",
@@ -572,112 +659,50 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
+                                                            fontSize: 14,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: _height * 0.02,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    (Provider.of<ThemeProvider>(
-                                                                context)
-                                                            .themeModel
-                                                            .isDark)
-                                                        ? Colors.black
-                                                            .withOpacity(0.4)
-                                                        : Colors.white
-                                                            .withOpacity(0.4),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
+                                                    Divider(
+                                                      thickness: 1,
                                                       color: (Provider.of<
                                                                       ThemeProvider>(
                                                                   context)
                                                               .themeModel
                                                               .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.water_drop,
-                                                      size: _height * 0.04,
+                                                          ? Colors.grey
+                                                          : Colors.white,
                                                     ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Humidity",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
+                                                    //humidity
                                                     Row(
-                                                      textBaseline: TextBaseline
-                                                          .ideographic,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         Text(
-                                                          "${data.humidity}",
+                                                          "Humidity",
                                                           style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
                                                             color: (Provider.of<
                                                                             ThemeProvider>(
                                                                         context)
                                                                     .themeModel
                                                                     .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
-                                                            fontWeight:
-                                                                FontWeight.w500,
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          width: _width * 0.01,
+                                                          width: 5,
                                                         ),
                                                         Text(
-                                                          "%",
+                                                          "${data.humidity} %",
                                                           style: TextStyle(
                                                             color: (Provider.of<
                                                                             ThemeProvider>(
@@ -686,103 +711,50 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
+                                                            fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    (Provider.of<ThemeProvider>(
-                                                                context)
-                                                            .themeModel
-                                                            .isDark)
-                                                        ? Colors.black
-                                                            .withOpacity(0.4)
-                                                        : Colors.white
-                                                            .withOpacity(0.4),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
+                                                    Divider(
+                                                      thickness: 1,
                                                       color: (Provider.of<
                                                                       ThemeProvider>(
                                                                   context)
                                                               .themeModel
                                                               .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.light_mode_outlined,
-                                                      size: _height * 0.04,
+                                                          ? Colors.grey
+                                                          : Colors.white,
                                                     ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "UV",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
+                                                    //Real feel
                                                     Row(
-                                                      textBaseline: TextBaseline
-                                                          .ideographic,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         Text(
-                                                          "${data.uv}",
+                                                          "Real Feel",
                                                           style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
                                                             color: (Provider.of<
                                                                             ThemeProvider>(
                                                                         context)
                                                                     .themeModel
                                                                     .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
-                                                            fontWeight:
-                                                                FontWeight.w500,
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          width: _width * 0.01,
+                                                          width: 5,
                                                         ),
                                                         Text(
-                                                          "Strong",
+                                                          "${data.feelslike_c}°",
                                                           style: TextStyle(
                                                             color: (Provider.of<
                                                                             ThemeProvider>(
@@ -791,8 +763,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
+                                                            fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -803,18 +774,9 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: _height * 0.02,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
                                             Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
+                                              height: 200,
+                                              width: 180,
                                               decoration: BoxDecoration(
                                                 color:
                                                     (Provider.of<ThemeProvider>(
@@ -826,56 +788,170 @@ class _HomePageState extends State<HomePage> {
                                                         : Colors.white
                                                             .withOpacity(0.4),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
+                                                    BorderRadius.circular(20),
                                               ),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(16),
                                                 child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(
+                                                    //Uv
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "UV",
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: (Provider.of<
+                                                                            ThemeProvider>(
+                                                                        context)
+                                                                    .themeModel
+                                                                    .isDark)
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          "${data.uv} ",
+                                                          style: TextStyle(
+                                                            color: (Provider.of<
+                                                                            ThemeProvider>(
+                                                                        context)
+                                                                    .themeModel
+                                                                    .isDark)
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Divider(
+                                                      thickness: 1,
                                                       color: (Provider.of<
                                                                       ThemeProvider>(
                                                                   context)
                                                               .themeModel
                                                               .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.visibility,
-                                                      size: _height * 0.04,
+                                                          ? Colors.grey
+                                                          : Colors.white,
                                                     ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Visibility",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
+                                                    //pressure
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            "Pressure",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: (Provider.of<
+                                                                              ThemeProvider>(
+                                                                          context)
+                                                                      .themeModel
+                                                                      .isDark)
+                                                                  ? Colors.grey
+                                                                  : Colors
+                                                                      .black54,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            "${data.pressure_mb}",
+                                                            style: TextStyle(
+                                                              color: (Provider.of<
+                                                                              ThemeProvider>(
+                                                                          context)
+                                                                      .themeModel
+                                                                      .isDark)
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "mbar",
+                                                            style: TextStyle(
+                                                              color: (Provider.of<
+                                                                              ThemeProvider>(
+                                                                          context)
+                                                                      .themeModel
+                                                                      .isDark)
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
+                                                    Divider(
+                                                      thickness: 1,
+                                                      color: (Provider.of<
+                                                                      ThemeProvider>(
+                                                                  context)
+                                                              .themeModel
+                                                              .isDark)
+                                                          ? Colors.grey
+                                                          : Colors.white,
                                                     ),
+                                                    //visibility
                                                     Row(
-                                                      textBaseline: TextBaseline
-                                                          .ideographic,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
+                                                        Text(
+                                                          "Visibility",
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: (Provider.of<
+                                                                            ThemeProvider>(
+                                                                        context)
+                                                                    .themeModel
+                                                                    .isDark)
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black54,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
                                                         Text(
                                                           "${data.vis_km}",
                                                           style: TextStyle(
@@ -886,14 +962,10 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
+                                                            fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: _width * 0.01,
                                                         ),
                                                         Text(
                                                           "km",
@@ -905,113 +977,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .isDark)
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: _height * 0.18,
-                                              width: _width * 0.45,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    (Provider.of<ThemeProvider>(
-                                                                context)
-                                                            .themeModel
-                                                            .isDark)
-                                                        ? Colors.black
-                                                            .withOpacity(0.4)
-                                                        : Colors.white
-                                                            .withOpacity(0.4),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        _height * 0.02),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
-                                                      color: (Provider.of<
-                                                                      ThemeProvider>(
-                                                                  context)
-                                                              .themeModel
-                                                              .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.wind_power,
-                                                      size: _height * 0.04,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Air pressure",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
-                                                    Row(
-                                                      textBaseline: TextBaseline
-                                                          .ideographic,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
-                                                      children: [
-                                                        Text(
-                                                          "${data.pressure_mb}",
-                                                          style: TextStyle(
-                                                            color: (Provider.of<
-                                                                            ThemeProvider>(
-                                                                        context)
-                                                                    .themeModel
-                                                                    .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.025,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: _width * 0.01,
-                                                        ),
-                                                        Text(
-                                                          "hPa",
-                                                          style: TextStyle(
-                                                            color: (Provider.of<
-                                                                            ThemeProvider>(
-                                                                        context)
-                                                                    .themeModel
-                                                                    .isDark)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                _height * 0.018,
+                                                            fontSize: 16,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -1025,11 +991,11 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: _height * 0.02,
+                                          height: 20,
                                         ),
                                         Container(
-                                          height: _height * 0.18,
-                                          width: _width,
+                                          height: 80,
+                                          width: double.infinity,
                                           decoration: BoxDecoration(
                                             color: (Provider.of<ThemeProvider>(
                                                         context)
@@ -1037,125 +1003,55 @@ class _HomePageState extends State<HomePage> {
                                                     .isDark)
                                                 ? Colors.black.withOpacity(0.4)
                                                 : Colors.white.withOpacity(0.4),
-                                            borderRadius: BorderRadius.circular(
-                                                _height * 0.02),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(16),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
-                                                      color: (Provider.of<
-                                                                      ThemeProvider>(
-                                                                  context)
-                                                              .themeModel
-                                                              .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.light_mode_outlined,
-                                                      size: _height * 0.04,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Sunrise",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
-                                                    Text(
-                                                      data.sunrise,
-                                                      style: TextStyle(
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                        fontSize:
-                                                            _height * 0.024,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                Icon(
+                                                  Icons.energy_savings_leaf,
+                                                  color: (Provider.of<
+                                                                  ThemeProvider>(
+                                                              context)
+                                                          .themeModel
+                                                          .isDark)
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Icon(
-                                                      color: (Provider.of<
-                                                                      ThemeProvider>(
-                                                                  context)
-                                                              .themeModel
-                                                              .isDark)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                      Icons.dark_mode_outlined,
-                                                      size: _height * 0.04,
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Sunset",
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            _height * 0.02,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.grey
-                                                            : Colors.black54,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: _height * 0.003,
-                                                    ),
-                                                    Text(
-                                                      data.sunset,
-                                                      style: TextStyle(
-                                                        color: (Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context)
-                                                                .themeModel
-                                                                .isDark)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                        fontSize:
-                                                            _height * 0.024,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                Text(
+                                                  "AQI 50",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: (Provider.of<
+                                                                    ThemeProvider>(
+                                                                context)
+                                                            .themeModel
+                                                            .isDark)
+                                                        ? Colors.grey
+                                                        : Colors.black,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 50,
+                                                ),
+                                                Text(
+                                                  "Full air quality forecast",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: (Provider.of<
+                                                                    ThemeProvider>(
+                                                                context)
+                                                            .themeModel
+                                                            .isDark)
+                                                        ? Colors.grey
+                                                        : Colors.black54,
+                                                  ),
                                                 ),
                                               ],
                                             ),
