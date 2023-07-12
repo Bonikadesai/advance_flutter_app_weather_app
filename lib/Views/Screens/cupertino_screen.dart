@@ -113,7 +113,7 @@ class _CupertinoScreenState extends State<CupertinoScreen> {
                         return Stack(
                           children: [
                             Container(
-                              height: 800,
+                              height: 1025,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
