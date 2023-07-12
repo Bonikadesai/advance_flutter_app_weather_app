@@ -1,4 +1,4 @@
-![screenshot-1689130649897](https://github.com/Bonikadesai/advance_flutter_app_weather_app/assets/114163756/e002e031-5955-467e-b1b3-5febb5f6f24c)# weather_flutter_app
+# weather_flutter_app
 
 A new Flutter project.
 
